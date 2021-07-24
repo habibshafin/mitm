@@ -129,7 +129,7 @@ void relay_icmp_packet(int sockid, unsigned char* buffer, int size)
     memset(&device, 0, sizeof device);
     device.sll_ifindex = if_nametoindex();
     if (device.sll_ifindex = if_nametoindex("eth0")) {
-        fprintf(stdout, "Got index '%d' from interface eth0\n",device.sll_ifindex);
+        //fprintf(stdout, "Got index '%d' from interface eth0\n",device.sll_ifindex);
     }
     int ret = -1;
     ret = sendto(sockid, eth, size, 0, (const struct sockaddr *)&device, sizeof(device));
