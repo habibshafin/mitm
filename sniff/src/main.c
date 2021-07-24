@@ -13,21 +13,13 @@ int main()
 
     unsigned char *buffer = (unsigned char *) malloc(65536); //Its Big!
 
-    // logfile=fopen("log.txt","w");
-    // if(logfile==NULL)
-    // {
-    //     printf("Unable to create log.txt file.");
-    // }
     printf("Starting...\n");
 
     int sock_raw = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
-    //setsockopt(sock_raw , SOL_SOCKET , SO_BINDTODEVICE , "eth0" , strlen("eth0")+ 1 );
-
-    if(sock_raw < 0)
-    {
-        //Print the error with proper message
-        perror("Socket Error");
-        return 1;
+    
+    if (sock_raw == -1) {
+        fprintf(stderr,"Socket creation failed\n");
+        return EXIT_FAILURE;
     }
     while(1)
     {
@@ -39,8 +31,10 @@ int main()
             printf("Recvfrom error , failed to get packets\n");
             return 1;
         }
-        //Now process the packet
-        // process_packet(buffer , data_size);
+        /*struct iphdr *iph = (struct iphdr *)(buffer + sizeof(struct ethhdr));
+        unsigned short iphdrlen =iph->ihl*4;
+
+        printf("Packet recieved from %s. Original target %s",iph->saddr, iph->daddr);*/
         relay_icmp_packet(sock_raw, buffer, data_size);
     }
     close(sock_raw);

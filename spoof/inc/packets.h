@@ -28,10 +28,9 @@ typedef struct
     uint8_t target_ip[IP_LENGTH];
 } arp_packet;
 
-eth_header *create_arp_packet(const uint16_t opcode,
-                                const uint8_t *my_mac_address,
-                                const char *spoofed_ip_source,
-                                const uint8_t *destination_mac_address,
-                                const char *destination_ip);
-
+eth_header* createArpPacket(const uint16_t opcode,
+                              const uint8_t *sender_mac,
+                              const char *sender_ip,
+                              const uint8_t *reciever_mac,
+                              const char *reciever_ip);
 #endif /* _PACKETS_H_ */
